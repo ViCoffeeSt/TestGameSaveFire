@@ -10,12 +10,14 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController _controller;
     private Vector3 _direction;
+    private Animator _animator;
 
     private int _lineToMove = 1;
 
     void Start()
     {
         _controller = GetComponent<CharacterController>();
+        _animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -54,20 +56,27 @@ public class PlayerController : MonoBehaviour
         }
 
         if (transform.position == targetPosition)
+        {
             return;
+        }
 
         Vector3 diff = targetPosition - transform.position;
         Vector3 moveDirection = diff.normalized * 25 * Time.deltaTime;
 
         if (moveDirection.sqrMagnitude < diff.sqrMagnitude)
+        {
             _controller.Move(moveDirection);
+        }
         else
+        {
             _controller.Move(diff);
+        }
     }
 
     private void Jump()
     {
         _direction.y = _jumpForce;
+        _animator.SetTrigger("Jump");
     }
     void FixedUpdate()
     {
