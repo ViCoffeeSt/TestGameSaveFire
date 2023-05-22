@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class ProgressBar : MonoBehaviour
 {
+    [SerializeField] private GameObject _loseWindow;
+
     public float MaxProgress;
     public float CurrentProgress;
     public float DecreaseRate;
@@ -13,6 +15,7 @@ public class ProgressBar : MonoBehaviour
     {
         ProgressBarSlider.maxValue = MaxProgress;
         ProgressBarSlider.value = CurrentProgress;
+        _loseWindow.SetActive(false);    
     }
 
     void Update()
@@ -22,6 +25,7 @@ public class ProgressBar : MonoBehaviour
 
         if(CurrentProgress <= 0)
         {
+            _loseWindow.SetActive(true);
             Time.timeScale = 0f;
         }
     }
